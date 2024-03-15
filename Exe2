@@ -1,0 +1,30 @@
+.text
+
+	.globl main
+main:
+	la $s0, vetA
+	la $s1, vetB
+	la $s2, vetC
+	la $s3, vetC+40
+
+loop:
+	bge $s2, $s3, fim
+	lw $t0, 0($s0)
+	lw $t1, 0($s1)
+	add $t2, $t0, $t1
+	sw $2, 0($s2)
+	addi $s0, $s0, 4
+	addi $s1, $s1, 4
+	addi $s2, $s2, 4
+	j loop
+
+
+fim:
+li $v0, 10
+syscall
+
+
+.data
+vetA: .word 0, 3, 6, 9, -2, -5, -5 , 5, 1, -6
+vetB: .word 6, -9, -6, -3, -2, 4, -3, 2, 2, -1
+vetC: .space 40 	
